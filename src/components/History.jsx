@@ -23,7 +23,6 @@ export default function History(){
                     return(
                         <div title={summary} key={coffeeIndex} >
                             <i className="fa-solid fa-mug-hot"></i>
-
                         </div>
                     )
                 })}

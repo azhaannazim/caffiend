@@ -19,7 +19,8 @@ export default function Layout(props){
                 <span className="text-gradient">Caffiend </span> 
                  was made by <a target="_blank" href="https://azhaannazim.github.io/">Azhaan Nazim </a>
                 with the help of <a target="_blank" href="https://www.fantacss.smoljames.com/">fanta.CSS </a> 
-                 design library.
+                design library.<br/>
+                Created by <a target="_blank" href="https://github.com/azhaannazim">Azhaan Nazim</a>
             </p>
         </footer>
     )

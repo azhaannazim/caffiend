@@ -1,28 +1,52 @@
-import { useState } from "react"
+import { useState } from 'react'
+import { useAuth } from '../context/AuthContext'
+export default function Authentication(props) {
+    const { closeModal } = props
+    const [isRegistration, setIsRegistration] = useState(false)
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [isAuthenticating, setIsAuthenticating] = useState(false)
+    const [error, setError] = useState(null)
 
-export default function Authentication(){
-    const [isRegistered , setisRegistered] = useState(false);
-    const [email , setEmail] = useState('');
-    const [password , setPassword] = useState('');
-    const [authenticating , setAuthenticating] = useState(false);
+    const { signup, login } = useAuth()
 
-    async function Authenticate(){
+    async function Authenticate() {
+        if (!email || !email.includes('@') || !password || password.length < 6 || isAuthenticating) { return }
+        try {
+            setIsAuthenticating(true)
+            setError(null)
+
+            if (isRegistration) {
+                // register a user
+                await signup(email, password)
+            } else {
+                // login a user
+                await login(email, password)
+            }
+            closeModal()
+        } catch (err) {
+            console.log(err.message)
+            setError(err.message)
+        } finally {
+            setIsAuthenticating(false)
+        }
 
     }
 
-    return(
+    return (
         <>
-            <h2 className="sign-up-text">{isRegistered ? 'Sign up' : 'Login'}</h2>
-            <p>{isRegistered ? 'Create new Account':'sign in to your account'}</p>
-            <input placeholder="Email" onChange={(e) => {setEmail(e.target.value)}}/>
-            <input placeholder="********" onChange={(e) => {setEmail(e.target.value)}} type="passward"/>
-            <button onClick={Authenticate}><p>Submit</p></button>
+            <h2 className="sign-up-text">{isRegistration ? 'Sign Up' : 'Login'}</h2>
+            <p>{isRegistration ? 'Create an account!' : 'Sign in to your account!'}</p>
+            {error && (
+                <p>❌ {error}</p>
+            )}
+            <input value={email} onChange={(e) => { setEmail(e.target.value) }} placeholder="Email" />
+            <input value={password} onChange={(e) => { setPassword(e.target.value) }} placeholder="********" type="password" />
+            <button onClick={Authenticate}><p>{isAuthenticating ? 'Authenticating...' : 'Submit'}</p></button>
             <hr />
             <div className="register-content">
-                <p>{isRegistered ? 'Already have an account' : 'Don\'t have an account ?'}</p>
-                <button onClick={() => {
-                    setisRegistered(!isRegistered)
-                }}><p>{isRegistered ? 'Sign in' : 'Sign up'}</p></button>
+                <p>{isRegistration ? 'Already have an account?' : 'Don\'t have an account?'}</p>
+                <button onClick={() => { setIsRegistration(!isRegistration) }}><p>{isRegistration ? 'Sign in' : 'Sign up'}</p></button>
             </div>
         </>
     )

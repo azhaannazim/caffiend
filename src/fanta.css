@@ -17,7 +17,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Eczar:wght@400..800&family=Grenze:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 :root {
-    --background-primary: white;
+    --background-primary: rgb(242, 222, 195);
     --background-secondary: '';
     --background-tertiary: #dbeafe;
     --background-accent: '';
@@ -25,14 +25,14 @@
     --background-gradient: '';
     --background-muted: #f8fafc;
 
-    --color-primary: #030615;
+    --color-primary: #150d03;
     --color-secondary: '';
     --color-tertiary: '';
     --color-accent: '';
     --color-compliment: '';
     --color-gradient: '';
     --color-muted: ;
-    --color-link: #2563eb;
+    --color-link: #ca7f07;
     --color-link-transparent: rgba(37, 99, 235, 0.1);
 
     --color-success: '';
@@ -41,12 +41,14 @@
     --color-info: '';
     --color-highlight: #fef9c3;
 
-    --gradient-start: #9580ff;
-    --gradient-end: #80ffea;
+    --gradient-start: #4b2e2e;
+        /* Dark brown, like strong coffee */
+        --gradient-end: #c19a6b;
+        /* Lighter brown, like creamy coffee */
 
-    --border-primary: #f1f5f9;
-    --border-secondary: #bed1e7;
-    --border-highlight: #64748b;
+    --border-primary: #c4940f;
+    --border-secondary: #9f7912;
+    --border-highlight: #bc500d;
     --border-tertiary: '';
 
     --shadow-dark: '';
@@ -62,9 +64,8 @@
 
     --text-selection: '';
 }
-
-@media (prefers-color-scheme: dark) {
-    :root {
+/* @media (prefers-color-scheme: dark) {  for system mode */
+    .dark-mode {
         --background-primary: #05070f;
         --background-secondary: #0e101e;
         --background-tertiary: #121424;
@@ -110,7 +111,6 @@
 
         --text-selection: '';
     }
-}
 
 * {
     margin: 0;
@@ -134,7 +134,6 @@ body {
     background-size: 100%;
     -webkit-box-decoration-break: clone;
 }
-
 
 /* Typography */
 h1,
@@ -681,4 +680,66 @@ details[open] summary {
     input {
         max-width: 600px;
     }
+}
+
+.auth-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+    margin-left: 20px;
+    /* Space between button and toggle */
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 80px;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #c7a266;
+    transition: .4s;
+    border-radius: 20px;
+    /* Rounded corners */
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background-color: #fffffe;
+    transition: .4s;
+    border-radius: 50%;
+    /* Circular switch */
+}
+
+input:checked+.slider {
+    background-color: #2196F3;
+    /* Change background on toggle */
+}
+
+input:checked+.slider:before {
+    transform: translateX(20px);
+    /* Move the switch */
+}
+
+/* Optional: For dark mode styling */
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
 }
